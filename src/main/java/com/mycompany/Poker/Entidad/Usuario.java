@@ -6,16 +6,10 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 2L;
 
     private String nombre;
+    private String contrasena; // <-- Atributo clave para la seguridad
     private double saldo;
 
-    public Usuario() {
-    }
-
-    public Usuario(String nombre, double saldo) {
-        this.nombre = nombre;
-        this.saldo = saldo;
-    }
-
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -24,16 +18,19 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     public double getSaldo() {
         return saldo;
     }
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario: " + nombre + " | Saldo Actual: $" + saldo;
     }
 }
