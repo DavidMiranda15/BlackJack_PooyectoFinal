@@ -7,29 +7,25 @@ import java.awt.*;
 public class ComponenteCarta extends JPanel {
 
     public ComponenteCarta(String valor, String palo) {
-        // Redimensionamos el panel al tamaño de una carta real a escala (80x115 px)
         setPreferredSize(new Dimension(80, 115));
         setMaximumSize(new Dimension(80, 115));
         setMinimumSize(new Dimension(80, 115));
-        
-        // Estilo de la tarjeta física
+
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
-        
-        // Borde redondeado sutil y sombra con los bordes de Swing
+
         setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true),
-            new EmptyBorder(5, 8, 5, 8)
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true),
+                new EmptyBorder(5, 8, 5, 8)
         ));
 
-        // Determinamos el símbolo Unicode y el color según el palo original
         String simboloPalo = "";
         Color colorPalo = Color.BLACK;
 
         switch (palo.toUpperCase()) {
             case "CORAZONES":
                 simboloPalo = "♥";
-                colorPalo = new Color(219, 20, 46); // Rojo carmesí
+                colorPalo = new Color(219, 20, 46);
                 break;
             case "DIAMANTES":
                 simboloPalo = "♦";
@@ -37,7 +33,7 @@ public class ComponenteCarta extends JPanel {
                 break;
             case "TREBOLES":
                 simboloPalo = "♣";
-                colorPalo = new Color(20, 20, 20); // Negro puro
+                colorPalo = new Color(20, 20, 20);
                 break;
             case "PICAS":
                 simboloPalo = "♠";
@@ -48,21 +44,18 @@ public class ComponenteCarta extends JPanel {
                 break;
         }
 
-        // 1. Índice superior izquierdo (Valor de la carta, ej: "A", "K", "10")
         JLabel lblIndice = new JLabel(valor);
         lblIndice.setFont(new Font("Arial", Font.BOLD, 16));
         lblIndice.setForeground(colorPalo);
         lblIndice.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(lblIndice, BorderLayout.NORTH);
 
-        // 2. Símbolo gigante en el centro (♥, ♦, ♣, ♠)
         JLabel lblCentro = new JLabel(simboloPalo, JLabel.CENTER);
         lblCentro.setFont(new Font("Arial", Font.PLAIN, 36));
         lblCentro.setForeground(colorPalo);
         add(lblCentro, BorderLayout.CENTER);
     }
 
-    // Dibujamos esquinas redondeadas en el JPanel para que parezca naipe real
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -71,14 +64,13 @@ public class ComponenteCarta extends JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
         g2.dispose();
     }
-    
+
     public ComponenteCarta() {
         setPreferredSize(new Dimension(80, 115));
         setMaximumSize(new Dimension(80, 115));
         setMinimumSize(new Dimension(80, 115));
-        
-        // El reverso de la carta estilo Casino: Fondo rojo o azul con un diseño sencillo
-        setBackground(new Color(219, 20, 46)); // Rojo Casino
+
+        setBackground(new Color(219, 20, 46));
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 

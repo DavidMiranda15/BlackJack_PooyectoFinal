@@ -8,11 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoLogin extends JDialog {
+
     private JTextField txtNombre;
     private JPasswordField txtContrasena;
     private BotonCasino btnEntrar;
     private ClienteRed clienteRed;
-    private Usuario usuarioLogueado = null; // Guardará el usuario si pasa el filtro
+    private Usuario usuarioLogueado = null;
 
     public DialogoLogin(JFrame padre, ClienteRed clienteRed) {
         super(padre, "Iniciar Sesión - Casino Royal", true);
@@ -51,34 +52,30 @@ public class DialogoLogin extends JDialog {
         add(panelForm, BorderLayout.CENTER);
         add(panelBoton, BorderLayout.SOUTH);
 
-       btnEntrar.addActionListener(new ActionListener() {
+        btnEntrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nombre = txtNombre.getText().trim();
                 String pass = new String(txtContrasena.getPassword()).trim();
-                
+
                 if (nombre.isEmpty() || pass.isEmpty()) {
                     JOptionPane.showMessageDialog(DialogoLogin.this, "Por favor introduce tus credenciales.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                // Aquí se conecta directo al servidor
                 Usuario verificado = clienteRed.autenticarUsuario(nombre, pass);
                 System.out.println("El servidor me regresó el objeto: " + verificado);
-                // Ojo aquí: Si pusiste "juan" y no existe, 'verificado' DEBE SER NULL
                 if (verificado != null) {
-                    usuarioLogueado = verificado; 
+                    usuarioLogueado = verificado;
                     JOptionPane.showMessageDialog(DialogoLogin.this, "¡Sesión iniciada correctamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    dispose(); 
+                    dispose();
                 } else {
-                    // Si te está diciendo sesión iniciada con juan, es porque el if de arriba se está cumpliendo solo
                     JOptionPane.showMessageDialog(DialogoLogin.this, "Usuario o contraseña incorrectos.", "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
     }
 
-    // Este método permite a la VentanaPrincipal extraer los datos del usuario logueado
     public Usuario getUsuarioLogueado() {
         return usuarioLogueado;
     }

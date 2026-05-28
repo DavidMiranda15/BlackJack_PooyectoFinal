@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DialogoRegistro extends JDialog {
+
     private JTextField txtNombre;
     private JPasswordField txtContrasena;
     private JTextField txtSaldo;
@@ -38,7 +39,7 @@ public class DialogoRegistro extends JDialog {
 
         JLabel lblSaldo = new JLabel("Saldo o Depósito Inicial ($):");
         lblSaldo.setForeground(Color.WHITE);
-        txtSaldo = new JTextField("1000"); // Bono sugerido
+        txtSaldo = new JTextField("1000");
 
         panelForm.add(lblNombre);
         panelForm.add(txtNombre);
@@ -77,21 +78,17 @@ public class DialogoRegistro extends JDialog {
                         return;
                     }
 
-                    // 1. Armamos el objeto de la entidad
                     Usuario nuevo = new Usuario();
                     nuevo.setNombre(nombre);
                     nuevo.setContrasena(pass);
                     nuevo.setSaldo(saldo);
 
-                    // --- CONEXIÓN REAL CON EL SERVIDOR ---
-                    // Le mandamos el objeto al cliente de red para que lo procese el HiloCliente
                     boolean exito = clienteRed.registrarUsuario(nuevo);
 
                     if (exito) {
                         JOptionPane.showMessageDialog(DialogoRegistro.this, "¡Usuario registrado con éxito en la base de datos!", "Registro Completado", JOptionPane.INFORMATION_MESSAGE);
-                        dispose(); // Se cierra el registro listo
+                        dispose();
                     } else {
-                        // El servidor devolvió REGISTRO_FAIL porque buscarPorNombre encontró un duplicado en db4o
                         JOptionPane.showMessageDialog(DialogoRegistro.this, "El nombre de usuario ya está en uso. Elige otro.", "Error de Registro", JOptionPane.ERROR_MESSAGE);
                     }
 

@@ -6,10 +6,9 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 2L;
 
     private String nombre;
-    private String contrasena; // <-- Atributo clave para la seguridad
+    private String contrasena; 
     private double saldo;
 
-    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
